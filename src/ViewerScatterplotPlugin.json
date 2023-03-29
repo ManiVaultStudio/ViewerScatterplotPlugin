@@ -1,0 +1,5 @@
+{
+    "name" : "ViewerScatterplot",
+    "version" : "1",
+    "dependencies" : ["Points"]
+}
