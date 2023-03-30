@@ -17,6 +17,7 @@ PositionAction::PositionAction(ViewerScatterplotPlugin* viewerscatterplotPlugin)
     setSerializationName("Position");
 
     _xDimensionPickerAction.setSerializationName("X");
+    
     _yDimensionPickerAction.setSerializationName("Y");
     
     // Add actions to scatter plot plugin (for shortcuts)
@@ -26,6 +27,8 @@ PositionAction::PositionAction(ViewerScatterplotPlugin* viewerscatterplotPlugin)
     // Set tooltips
     _xDimensionPickerAction.setToolTip("X dimension");
     _yDimensionPickerAction.setToolTip("Y dimension");
+
+   
 
     // Update scatter plot when the x-dimension changes
     connect(&_xDimensionPickerAction, &DimensionPickerAction::currentDimensionIndexChanged, [this, viewerscatterplotPlugin](const std::uint32_t& currentDimensionIndex) {
@@ -43,16 +46,36 @@ PositionAction::PositionAction(ViewerScatterplotPlugin* viewerscatterplotPlugin)
         _xDimensionPickerAction.setPointsDataset(_viewerscatterplotPlugin->getPositionDataset());
         _yDimensionPickerAction.setPointsDataset(_viewerscatterplotPlugin->getPositionDataset());
 
-        // Assign current and default index to x-dimension action
-        _xDimensionPickerAction.setCurrentDimensionIndex(0);
-        _xDimensionPickerAction.setDefaultDimensionIndex(0);
+        auto xdimensionNames = _xDimensionPickerAction.getDimensionNames();
+        if(xdimensionNames.contains("_Overview_X"))
+        {
+            _xDimensionPickerAction.setDefaultDimensionName("_Overview_X");
+            _xDimensionPickerAction.setCurrentDimensionName("_Overview_X");
+        }
+        else
+        {
+            // Assign current and default index to x-dimension action
+            _xDimensionPickerAction.setCurrentDimensionIndex(0);
+            _xDimensionPickerAction.setDefaultDimensionIndex(0);
+        }
 
-        // Establish y-dimension
-        const auto yIndex = _xDimensionPickerAction.getNumberOfDimensions() >= 2 ? 1 : 0;
+        auto ydimensionNames = _yDimensionPickerAction.getDimensionNames();
+        if(ydimensionNames.contains("_Overview_Y"))
+        {
+            _yDimensionPickerAction.setDefaultDimensionName("_Overview_Y");
+            _yDimensionPickerAction.setCurrentDimensionName("_Overview_Y");
+        }
+        else
+        {
+            // Establish y-dimension
+            const auto yIndex = _xDimensionPickerAction.getNumberOfDimensions() >= 2 ? 1 : 0;
 
-        // Assign current and default index to y-dimension action
-        _yDimensionPickerAction.setCurrentDimensionIndex(yIndex);
-        _yDimensionPickerAction.setDefaultDimensionIndex(yIndex);
+            // Assign current and default index to y-dimension action
+            _yDimensionPickerAction.setCurrentDimensionIndex(yIndex);
+            _yDimensionPickerAction.setDefaultDimensionIndex(yIndex);
+        }
+
+       
     });
 }
 
