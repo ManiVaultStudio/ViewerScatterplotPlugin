@@ -6,9 +6,9 @@
 #include "util/PixelSelectionTool.h"
 #include "util/Timer.h"
 
-#include "PointData.h"
-#include "ClusterData.h"
-#include "ColorData.h"
+#include "PointData/PointData.h"
+#include "ClusterData/ClusterData.h"
+#include "ColorData/ColorData.h"
 
 #include "graphics/Vector2f.h"
 #include "graphics/Vector3f.h"
