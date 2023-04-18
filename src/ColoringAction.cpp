@@ -5,8 +5,8 @@
 #include "ViewerScatterplotWidget.h"
 #include "DataHierarchyItem.h"
 
-#include "PointData.h"
-#include "ClusterData.h"
+#include "PointData/PointData.h"
+#include "ClusterData/ClusterData.h"
 
 using namespace hdps::gui;
 
